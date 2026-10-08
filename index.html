@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Berra — Level 17</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    color:#332744;
+    overflow-x:hidden;
+
+    background:
+        radial-gradient(circle at 10% 20%, #b9e7ff 0%, transparent 30%),
+        radial-gradient(circle at 90% 20%, #e6b7ff 0%, transparent 30%),
+        radial-gradient(circle at 50% 80%, #b9f2d0 0%, transparent 35%),
+        linear-gradient(135deg,#d7f3ff,#eadcff,#ffd9ee,#d9f8e5);
+
+    background-size:200% 200%;
+    animation:backgroundMove 14s ease infinite;
+}
+
+@keyframes backgroundMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+
+/* -------------------------
+   FLOATING OBJECTS
+------------------------- */
+
+.floating{
+    position:fixed;
+    pointer-events:none;
+    z-index:0;
+    user-select:none;
+}
+
+.float1{
+    top:10%;
+    left:4%;
+    font-size:40px;
+    animation:float 6s ease-in-out infinite;
+}
+
+.float2{
+    top:20%;
+    right:5%;
+    font-size:42px;
+    animation:float 7s ease-in-out infinite reverse;
+}
+
+.float3{
+    bottom:15%;
+    left:7%;
+    font-size:35px;
+    animation:float 8s ease-in-out infinite;
+}
+
+.float4{
+    bottom:20%;
+    right:7%;
+    font-size:38px;
+    animation:float 5s ease-in-out infinite reverse;
+}
+
+@keyframes float{
+
+    0%,100%{
+        transform:translateY(0) rotate(-5deg);
+    }
+
+    50%{
+        transform:translateY(-20px) rotate(5deg);
+    }
+}
+
+
+/* -------------------------
+   HERO
+------------------------- */
+
+.hero{
+
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:30px;
+
+    position:relative;
+    z-index:1;
+}
+
+.hero-content{
+    max-width:850px;
+}
+
+.badge{
+
+    display:inline-block;
+
+    padding:10px 18px;
+
+    background:rgba(255,255,255,.65);
+
+    border:1px solid rgba(255,255,255,.8);
+
+    border-radius:50px;
+
+    backdrop-filter:blur(10px);
+
+    font-size:14px;
+
+    margin-bottom:25px;
+
+    box-shadow:0 10px 30px rgba(100,70,120,.1);
+}
+
+h1{
+
+    font-size:clamp(70px,15vw,160px);
+
+    letter-spacing:-8px;
+
+    line-height:.9;
+
+    margin-bottom:25px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #5578e8,
+            #8d65d8,
+            #e27eaf,
+            #58a987
+        );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    animation:titleColor 7s linear infinite;
+}
+
+@keyframes titleColor{
+
+    0%{
+        background-position:0%;
+    }
+
+    100%{
+        background-position:300%;
+    }
+}
+
+.hero h2{
+
+    font-size:clamp(20px,4vw,32px);
+
+    margin-bottom:20px;
+}
+
+.hero p{
+
+    max-width:650px;
+
+    margin:auto;
+
+    line-height:1.8;
+
+    color:#675b72;
+}
+
+.main-button{
+
+    display:inline-block;
+
+    margin-top:35px;
+
+    padding:16px 28px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:#fff;
+
+    color:#493b59;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    box-shadow:0 12px 35px rgba(90,60,110,.15);
+
+    transition:.3s;
+}
+
+.main-button:hover{
+
+    transform:translateY(-5px) scale(1.04);
+
+    box-shadow:0 18px 40px rgba(90,60,110,.25);
+}
+
+
+/* -------------------------
+   SECTIONS
+------------------------- */
+
+section{
+
+    max-width:1050px;
+
+    margin:auto;
+
+    padding:110px 25px;
+
+    position:relative;
+
+    z-index:1;
+}
+
+.section-title{
+
+    text-align:center;
+
+    font-size:42px;
+
+    margin-bottom:12px;
+}
+
+.section-subtitle{
+
+    text-align:center;
+
+    color:#746b7e;
+
+    margin-bottom:50px;
+
+}
+
+
+/* -------------------------
+   CARDS
+------------------------- */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(240px,1fr));
+
+    gap:22px;
+}
+
+.card{
+
+    padding:30px;
+
+    border-radius:28px;
+
+    background:rgba(255,255,255,.55);
+
+    border:1px solid rgba(255,255,255,.7);
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        0 15px 40px rgba(90,70,120,.08);
+
+    transition:.35s;
+}
+
+.card:hover{
+
+    transform:
+        translateY(-8px)
+        rotate(-1deg);
+
+    box-shadow:
+        0 25px 50px rgba(90,70,120,.15);
+}
+
+.card-icon{
+
+    font-size:45px;
+
+    margin-bottom:20px;
+}
+
+.card h3{
+
+    margin-bottom:12px;
+
+    font-size:22px;
+}
+
+.card p{
+
+    color:#6d6475;
+
+    line-height:1.7;
+}
+
+
+/* -------------------------
+   STATS
+------------------------- */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(170px,1fr));
+
+    gap:20px;
+}
+
+.stat{
+
+    text-align:center;
+
+    padding:30px 15px;
+
+    background:rgba(255,255,255,.55);
+
+    border-radius:25px;
+
+    border:1px solid rgba(255,255,255,.7);
+}
+
+.stat-number{
+
+    font-size:42px;
+
+    font-weight:bold;
+
+    margin-bottom:8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #627de5,
+            #d87bb0
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+}
+
+.stat-label{
+
+    color:#766d7e;
+}
+
+
+/* -------------------------
+   LAVENDER
+------------------------- */
+
+.lavender{
+
+    text-align:center;
+
+    overflow:hidden;
+}
+
+.lavender-box{
+
+    padding:60px 30px;
+
+    border-radius:35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(164,139,255,.35),
+            rgba(255,190,230,.35)
+        );
+
+    border:1px solid rgba(255,255,255,.7);
+
+    box-shadow:
+        0 20px 50px rgba(100,70,150,.12);
+}
+
+.lavender-icon{
+
+    font-size:75px;
+
+    animation:lavenderFloat 4s ease-in-out infinite;
+}
+
+@keyframes lavenderFloat{
+
+    0%,100%{
+        transform:rotate(-4deg) translateY(0);
+    }
+
+    50%{
+        transform:rotate(4deg) translateY(-12px);
+    }
+}
+
+.lavender-box h3{
+
+    margin:20px 0;
+
+    font-size:30px;
+}
+
+.lavender-box p{
+
+    max-width:650px;
+
+    margin:auto;
+
+    line-height:1.9;
+
+    color:#665a73;
+}
+
+
+/* -------------------------
+   ANIMAL COUNCIL
+------------------------- */
+
+.animal{
+
+    text-align:center;
+}
+
+.animal-icon{
+
+    font-size:70px;
+
+    margin-bottom:15px;
+
+    display:block;
+
+    transition:.3s;
+}
+
+.animal:hover .animal-icon{
+
+    transform:
+        scale(1.15)
+        rotate(5deg);
+}
+
+
+/* -------------------------
+   SLEEP SYSTEM
+------------------------- */
+
+.sleep-box{
+
+    max-width:750px;
+
+    margin:auto;
+
+    padding:40px;
+
+    border-radius:30px;
+
+    background:rgba(40,34,70,.9);
+
+    color:white;
+
+    box-shadow:
+        0 25px 60px rgba(30,20,60,.25);
+}
+
+.sleep-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.sleep-bar{
+
+    height:24px;
+
+    background:#514968;
+
+    border-radius:20px;
+
+    overflow:hidden;
+}
+
+.sleep-fill{
+
+    width:92%;
+
+    height:100%;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6e7ee9,
+            #a66bd4,
+            #e98ab7
+        );
+
+    animation:sleepPulse 2s infinite alternate;
+}
+
+@keyframes sleepPulse{
+
+    from{
+        width:88%;
+    }
+
+    to{
+        width:95%;
+    }
+}
+
+.sleep-text{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#d5cee4;
+}
+
+
+/* -------------------------
+   BMO STYLE
+------------------------- */
+
+.bmo{
+
+    max-width:700px;
+
+    margin:auto;
+
+    padding:35px;
+
+    border-radius:30px;
+
+    background:#6bc6b1;
+
+    border:8px solid #459c8b;
+
+    box-shadow:
+        0 20px 50px rgba(50,120,110,.2);
+}
+
+.bmo-screen{
+
+    background:#263d52;
+
+    color:#b8f5d8;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    font-family:monospace;
+
+    line-height:1.9;
+
+    box-shadow:
+        inset 0 0 30px rgba(0,0,0,.3);
+}
+
+.bmo-title{
+
+    text-align:center;
+
+    color:white;
+
+    font-size:25px;
+
+    margin-bottom:20px;
+}
+
+.bmo-button{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-top:25px;
+}
+
+.bmo-button span{
+
+    width:30px;
+
+    height:30px;
+
+    border-radius:50%;
+
+    background:#f2a2bd;
+}
+
+
+/* -------------------------
+   POEM
+------------------------- */
+
+.poem{
+
+    text-align:center;
+}
+
+.poem-box{
+
+    max-width:750px;
+
+    margin:auto;
+
+    padding:60px 35px;
+
+    border-radius:35px;
+
+    background:rgba(255,255,255,.6);
+
+    border:1px solid rgba(255,255,255,.8);
+
+    box-shadow:
+        0 20px 50px rgba(100,70,130,.1);
+}
+
+.poem-placeholder{
+
+    color:#817589;
+
+    font-style:italic;
+
+    line-height:2;
+}
+
+
+/* -------------------------
+   FINAL
+------------------------- */
+
+.final{
+
+    min-height:80vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+}
+
+.final-icon{
+
+    font-size:80px;
+
+    animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-15px);
+    }
+}
+
+.final h2{
+
+    font-size:clamp(45px,9vw,90px);
+
+    margin:25px 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #667eea,
+            #d979ae,
+            #68a88c
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+}
+
+.final p{
+
+    max-width:600px;
+
+    margin:auto;
+
+    line-height:1.8;
+
+    color:#6e6575;
+}
+
+
+/* -------------------------
+   SPEECH BUBBLES
+------------------------- */
+
+.bubble{
+
+    position:fixed;
+
+    background:white;
+
+    padding:10px 15px;
+
+    border-radius:18px;
+
+    font-size:13px;
+
+    box-shadow:
+        0 8px 25px rgba(70,50,90,.15);
+
+    z-index:10;
+
+    animation:bubbleFloat 4s ease-in-out infinite;
+}
+
+.bubble::after{
+
+    content:"";
+
+    position:absolute;
+
+    bottom:-7px;
+
+    left:20px;
+
+    border-width:7px 7px 0 0;
+
+    border-style:solid;
+
+    border-color:white transparent transparent transparent;
+}
+
+.bubble1{
+
+    top:18%;
+
+    left:3%;
+}
+
+.bubble2{
+
+    top:35%;
+
+    right:3%;
+
+    animation-delay:1s;
+}
+
+.bubble3{
+
+    bottom:15%;
+
+    right:5%;
+
+    animation-delay:2s;
+}
+
+@keyframes bubbleFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+
+/* -------------------------
+   FOOTER
+------------------------- */
+
+footer{
+
+    text-align:center;
+
+    padding:50px 20px;
+
+    color:#817789;
+
+    font-size:13px;
+}
+
+
+/* -------------------------
+   MOBILE
+------------------------- */
+
+@media(max-width:600px){
+
+    h1{
+
+        letter-spacing:-5px;
+    }
+
+    section{
+
+        padding:80px 20px;
+    }
+
+    .section-title{
+
+        font-size:34px;
+    }
+
+    .sleep-box{
+
+        padding:25px;
+    }
+
+    .bubble{
+
+        display:none;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- SABİT SÜSLER -->
+
+<div class="floating float1">🌿</div>
+<div class="floating float2">🦉</div>
+<div class="floating float3">🌸</div>
+<div class="floating float4">🐈</div>
+
+
+<!-- KONUŞMA BALONLARI -->
+
+<div class="bubble bubble1">
+    🐈 Bayburt nerede?
+</div>
+
+<div class="bubble bubble2">
+    🦉 Uyuyor.
+</div>
+
+<div class="bubble bubble3">
+    🦫 Yine mi?
+</div>
+
+
+<!-- HERO -->
+
+<header class="hero">
+
+<div class="hero-content">
+
+<div class="badge">
+    ⚠️ BAYBURT DOSYASI — GİZLİ ARŞİV
+</div>
+
+<h1>BERRA</h1>
+
+<h2>
+    17. Seviye Açıldı! 🎂
+</h2>
+
+<p>
+
+    Bugün sıradan bir gün değildir.
+    Çünkü dünyanın bir yerinde,
+    muhtemelen uyuyan,
+    muhtemelen waffle düşünen,
+    muhtemelen birileriyle sohbet eden
+    bir Bayburt daha 17 yaşına girmiştir.
+
+</p>
+
+<a href="#dosya" class="main-button">
+    BAYBURT DOSYASINI AÇ →
+</a>
+
+</div>
+
+</header>
+
+
+<!-- KİMDİR -->
+
+<section id="dosya">
+
+<h2 class="section-title">
+    🗂️ Bayburt Kimdir?
+</h2>
+
+<p class="section-subtitle">
+    Bilim insanlarının hâlâ tam olarak çözemediği bir vaka.
+</p>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<div class="card-icon">
+    🌸
+</div>
+
+<h3>
+    Neşeli
+</h3>
+
+<p>
+    Bulunduğu ortama biraz olsun neşe,
+    biraz kahkaha ve muhtemelen
+    gereğinden fazla sohbet katabilen
+    özel bir canlı türüdür.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+    💜
+</div>
+
+<h3>
+    Destekleyici
+</h3>
+
+<p>
+    Dostlarının yanında olmayı bilen,
+    paylaşmayı seven ve gerektiğinde
+    insanın moralini yükseltebilen
+    nadir Bayburt türlerinden biridir.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+    😂
+</div>
+
+<h3>
+    Eğlenceli
+</h3>
+
+<p>
+    Kendisiyle geçirilen zamanın nasıl
+    geçtiğinin anlaşılmaması bilimsel
+    olarak kanıtlanmıştır.
+    Muhtemelen konuşmaktan dolayıdır.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- İSTATİSTİKLER -->
+
+<section>
+
+<h2 class="section-title">
+    📊 Bilimsel Bayburt İstatistikleri
+</h2>
+
+<p class="section-subtitle">
+    Veriler tamamen tarafsız kaynaklardan alınmıştır.
+    (Kaynak: biz)
+</p>
+
+
+<div class="stats">
+
+
+<div class="stat">
+
+<div class="stat-number">
+    %94
+</div>
+
+<div class="stat-label">
+    Arkadaş canlılığı
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-number">
+    %98
+</div>
+
+<div class="stat-label">
+    Sohbet etme isteği
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-number">
+    %100
+</div>
+
+<div class="stat-label">
+    Waffle sevgisi
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-number">
+    %92
+</div>
+
+<div class="stat-label">
+    Uyuma ihtimali
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- LAVANTA -->
+
+<section class="lavender">
+
+<h2 class="section-title">
+    🌿 Lavanta Arşivi
+</h2>
+
+<p class="section-subtitle">
+    Tarihin unutulmaz olaylarından biri.
+</p>
+
+
+<div class="lavender-box">
+
+<div class="lavender-icon">
+    💜🌿💜
+</div>
+
+<h3>
+    LAVANTALARIN EN BÜYÜK ÖVGÜCÜ
+</h3>
+
+<p>
+
+    Bazı insanların hayatında lavantanın özel bir yeri vardır.
+    Bazılarının hayatında ise lavanta,
+    hakkında söylenecek güzel sözlerin bahanesine dönüşür.
+
+    <br><br>
+
+    Bu bölümün varlık sebebi tamamen tesadüftür.
+    Kesinlikle aramızdaki o meşhur olayla ilgisi yoktur.
+
+    <br><br>
+
+    <strong>
+        🌿 Lavanta onaylandı.
+    </strong>
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- HAYVAN KONSEYİ -->
+
+<section>
+
+<h2 class="section-title">
+    🐾 Bayburt'un Hayvan Konseyi
+</h2>
+
+<p class="section-subtitle">
+    Kendisi hakkında karar vermek üzere toplanan kurul.
+</p>
+
+
+<div class="grid">
+
+
+<div class="card animal">
+
+<span class="animal-icon">
+    🐈
+</span>
+
+<h3>
+    Kedi Konseyi
+</h3>
+
+<p>
+    "Bu insan iyi biri.
+    Ayrıca bizi seviyor.
+    Onayımız vardır."
+</p>
+
+</div>
+
+
+<div class="card animal">
+
+<span class="animal-icon">
+    🦉
+</span>
+
+<h3>
+    Baykuş Konseyi
+</h3>
+
+<p>
+    "Gece geç saatlerde hâlâ
+    sohbet edebilmesi takdire şayandır.
+    Fakat bazen uyuması gerekir."
+</p>
+
+</div>
+
+
+<div class="card animal">
+
+<span class="animal-icon">
+    🦫
+</span>
+
+<h3>
+    Kapibara Konseyi
+</h3>
+
+<p>
+    "Sakin olun.
+    Waffle yiyin.
+    Hayat güzel."
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- UYKU -->
+
+<section>
+
+<h2 class="section-title">
+    😴 Bayburt Uyku Sistemi
+</h2>
+
+<p class="section-subtitle">
+    Sistem zaman zaman otomatik olarak devreye girmektedir.
+</p>
+
+
+<div class="sleep-box">
+
+<div class="sleep-header">
+
+<strong>
+    UYKU SEVİYESİ
+</strong>
+
+<span>
+    %92
+</span>
+
+</div>
+
+
+<div class="sleep-bar">
+
+<div class="sleep-fill"></div>
+
+</div>
+
+
+<div class="sleep-text">
+
+    ⚠️ Dikkat:
+    Kullanıcı herhangi bir ortamda
+    beklenmedik şekilde uyku moduna geçebilir.
+
+    <br><br>
+
+    <strong>
+        Uyandırma ihtimali: %23
+    </strong>
+
+    <br>
+
+    <strong>
+        Waffle ile uyandırma ihtimali: %87
+    </strong>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BMO -->
+
+<section>
+
+<h2 class="section-title">
+    🎮 BMO'nun Resmî Raporu
+</h2>
+
+<p class="section-subtitle">
+    Oyuncu analizi tamamlandı.
+</p>
+
+
+<div class="bmo">
+
+<div class="bmo-screen">
+
+<div class="bmo-title">
+    BMO FRIENDSHIP SYSTEM
+</div>
+
+PLAYER: BERRA
+
+<br>
+
+LEVEL: 17
+
+<br>
+
+CLASS: DESTEKLEYİCİ ARKADAŞ
+
+<br><br>
+
+SPECIAL ABILITY:
+<br>
+→ Ortamı güzelleştirmek
+
+<br><br>
+
+PASSIVE ABILITY:
+<br>
+→ Her yerde uyuyabilmek
+
+<br><br>
+
+CRITICAL WEAKNESS:
+<br>
+→ Waffle 🧇
+
+<br><br>
+
+EMOTIONAL DAMAGE:
+<br>
+→ Lavanta övgüsü 🌿
+
+<br><br>
+
+FRIENDSHIP LEVEL:
+<br>
+
+██████████████████ 100%
+
+</div>
+
+
+<div class="bmo-button">
+
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BİRLİKTE ZAMAN -->
+
+<section>
+
+<h2 class="section-title">
+    🧇 Beraber Yapılabilecekler Listesi
+</h2>
+
+<p class="section-subtitle">
+    Araştırma sonucunda elde edilen son derece önemli bilgiler.
+</p>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<div class="card-icon">
+    💬
+</div>
+
+<h3>
+    Sohbet Et
+</h3>
+
+<p>
+    Konu ne olursa olsun konuş.
+    Çünkü bazı sohbetlerin belirli bir
+    konuya ihtiyacı yoktur.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+    🧇
+</div>
+
+<h3>
+    Waffle Ye
+</h3>
+
+<p>
+    Bilim insanları tarafından
+    arkadaşlık seviyesini artırdığı
+    kanıtlanmıştır.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+    🌆
+</div>
+
+<h3>
+    Birlikte Zaman Geçir
+</h3>
+
+<p>
+    Bazen özel bir şey yapmaya bile
+    gerek yoktur. Birlikte olmak yeterlidir.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ŞİİR -->
+
+<section class="poem">
+
+<h2 class="section-title">
+    📜 Bayburt'a Birkaç Mısra
+</h2>
+
+<p class="section-subtitle">
+    Bu bölüm doğum günü sahibine özel olarak ayrılmıştır.
+</p>
+
+
+<div class="poem-box">
+
+<div class="poem-placeholder">
+
+    <p>
+        [ ŞİİR BURAYA GELECEK ]
+    </p>
+
+    <br>
+
+    <p>
+        Bu bölüme senin yazacağın şiiri
+        yerleştireceğiz azizim. 🌿
+    </p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FINAL -->
+
+<section class="final">
+
+<div>
+
+<div class="final-icon">
+    🎂
+</div>
+
+<h2>
+    İYİ Kİ DOĞDUN<br>
+    BERRA.
+</h2>
+
+<p>
+
+    17. seviyeye hoş geldin.
+
+    <br><br>
+
+    Umarım yeni yaşında
+    bolca gülersin,
+    güzel insanlarla güzel zaman geçirirsin,
+    bol bol sohbet eder,
+    bol bol waffle yersin...
+
+    <br><br>
+
+    Ve mümkünse...
+
+    <br>
+
+    <strong>
+        biraz da uyanık kalırsın. 😴
+    </strong>
+
+    <br><br>
+
+    İyi ki varsın Bayburt. 💜
+
+</p>
+
+</div>
+
+</section>
+
+
+<footer>
+
+🌿 🐈 🦉 🦫 🎮 🧇 🌸
+
+<br><br>
+
+Bu site sevgi, dostluk, lavanta
+ve gereğinden fazla emek ile hazırlanmıştır.
+
+<br><br>
+
+© 2026 — Bayburt Arşivleri
+
+</footer>
+
+
+</body>
+</html>
